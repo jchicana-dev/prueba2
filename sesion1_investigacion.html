@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EC-108: Sesión 1 - Metodología de la Investigación | UNAC</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-dark: #172554;
+      --primary-light: #2563eb;
+      --secondary: #0f766e;
+      --accent: #b45309;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --border: #cbd5e1;
+      --success-bg: #dcfce7;
+      --success-text: #166534;
+      --danger-bg: #fee2e2;
+      --danger-text: #991b1b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ENCABEZADO */
+    header {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: #ffffff;
+      padding: 2.5rem 1.5rem;
+      border-bottom: 5px solid var(--accent);
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: 0 auto;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.18);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    header h1 {
+      font-size: 2.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    header p.subtitle {
+      font-size: 1.15rem;
+      opacity: 0.92;
+    }
+
+    .meta-grid {
+      margin-top: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+      padding-top: 1rem;
+    }
+
+    /* BARRA DE NAVEGACIÓN */
+    nav {
+      background-color: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
+
+    .nav-tabs {
+      max-width: 1150px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      outline: none;
+      padding: 1rem 1.25rem;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .tab-btn:hover {
+      color: var(--primary);
+      background-color: #f1f5f9;
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      background-color: #f8fafc;
+    }
+
+    /* CONTENEDOR Y PESTAÑAS */
+    main {
+      max-width: 1150px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      min-height: 65vh;
+    }
+
+    .tab-pane {
+      display: none;
+    }
+
+    .tab-pane.active {
+      display: block;
+      animation: fadeIn 0.25s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.75rem;
+      margin-bottom: 1.75rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .card h2 {
+      color: var(--primary);
+      font-size: 1.45rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 0.5rem;
+    }
+
+    .card h3 {
+      color: var(--secondary);
+      font-size: 1.15rem;
+      margin: 1.25rem 0 0.5rem 0;
+    }
+
+    /* CRONOGRAMA */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 1.5rem;
+      padding: 1rem;
+      background: #f8fafc;
+      border-left: 4px solid var(--primary);
+      border-radius: 0 6px 6px 0;
+    }
+
+    .timeline-time {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-weight: 700;
+      color: var(--secondary);
+      font-size: 0.9rem;
+    }
+
+    /* VISOR DE DIAPOSITIVAS */
+    .slideshow-container {
+      background: #0f172a;
+      color: #f8fafc;
+      border-radius: 8px;
+      padding: 2.5rem 2rem;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2);
+    }
+
+    .slide {
+      display: none;
+    }
+
+    .slide.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .slide h3 {
+      font-size: 1.6rem;
+      color: #93c5fd;
+      margin-bottom: 1rem;
+    }
+
+    .slide-body {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: #e2e8f0;
+    }
+
+    .slide-body ul {
+      margin-left: 1.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .slide-body li {
+      margin-bottom: 0.6rem;
+    }
+
+    .slideshow-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #334155;
+    }
+
+    .btn-slide {
+      background-color: var(--primary-light);
+      color: #ffffff;
+      border: none;
+      padding: 0.6rem 1.25rem;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-slide:hover:not(:disabled) {
+      background-color: #1d4ed8;
+    }
+
+    .btn-slide:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .slide-counter {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      font-family: monospace;
+    }
+
+    /* CUESTIONARIO DIAGNÓSTICO */
+    .quiz-card {
+      border: 1px solid var(--border);
+      background: #fafafa;
+      border-radius: 6px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .quiz-card h4 {
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 0.85rem;
+    }
+
+    .quiz-option {
+      display: block;
+      padding: 0.6rem 0.85rem;
+      margin-bottom: 0.4rem;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.92rem;
+      transition: border 0.15s, background 0.15s;
+    }
+
+    .quiz-option:hover {
+      border-color: var(--primary-light);
+      background: #f1f5f9;
+    }
+
+    .feedback-box {
+      margin-top: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      display: none;
+    }
+
+    .feedback-box.correct {
+      display: block;
+      background-color: var(--success-bg);
+      color: var(--success-text);
+      border-left: 4px solid #15803d;
+    }
+
+    .feedback-box.incorrect {
+      display: block;
+      background-color: var(--danger-bg);
+      color: var(--danger-text);
+      border-left: 4px solid #b91c1c;
+    }
+
+    .score-banner {
+      display: none;
+      background: #eff6ff;
+      border: 2px solid var(--primary-light);
+      border-radius: 6px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    /* CASOS DE ESTUDIO */
+    .case-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 0.75rem;
+    }
+
+    @media (max-width: 768px) {
+      .case-grid {
+        grid-template-columns: 1fr;
+      }
+      .timeline-item {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+    }
+
+    .case-box {
+      padding: 1.1rem;
+      border-radius: 6px;
+      font-size: 0.92rem;
+    }
+
+    .case-tech {
+      background: #fff1f2;
+      border: 1px solid #fecdd3;
+    }
+
+    .case-research {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+    }
+
+    /* CANVAS DE INVESTIGACIÓN */
+    .canvas-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 992px) {
+      .canvas-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 650px) {
+      .canvas-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .canvas-cell {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .canvas-cell label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.03em;
+    }
+
+    .canvas-cell textarea, .canvas-cell select, .canvas-cell input {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      background: #ffffff;
+      flex-grow: 1;
+      resize: vertical;
+    }
+
+    .canvas-cell textarea:focus, .canvas-cell select:focus, .canvas-cell input:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .btn-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .btn {
+      padding: 0.75rem 1.4rem;
+      border: none;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-primary { background: var(--primary); color: #ffffff; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-secondary { background: #475569; color: #ffffff; }
+    .btn-secondary:hover { background: #334155; }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    .btn-outline:hover { background: #e2e8f0; }
+
+    /* INTEGRIDAD Y PAUTA 5V */
+    .pauta-list {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .pauta-item {
+      padding: 1.1rem;
+      border-radius: 6px;
+      background: #f8fafc;
+      border-left: 5px solid var(--primary);
+    }
+
+    .pauta-item h4 {
+      color: var(--primary);
+      margin-bottom: 0.35rem;
+      font-size: 1.05rem;
+    }
+
+    /* ESTILOS DE IMPRESIÓN */
+    @media print {
+      header, nav, .btn-toolbar, .slideshow-controls, footer, .tab-btn {
+        display: none !important;
+      }
+      body, main {
+        background: #ffffff;
+        margin: 0;
+        padding: 0;
+      }
+      .tab-pane {
+        display: block !important;
+      }
+      .card {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        margin-bottom: 1.5rem;
+      }
+      .canvas-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 0.5rem;
+      }
+      .canvas-cell {
+        border: 1px solid #000000;
+        page-break-inside: avoid;
+      }
+      textarea, input {
+        border: none;
+        resize: none;
+      }
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CABECERA INSTITUCIONAL -->
+  <header>
+    <div class="container">
+      <div class="badge">Universidad Nacional del Callao • Posgrado FIEE</div>
+      <h1>Metodología de la Investigación (EC-108)</h1>
+      <p class="subtitle">Maestría en Ciencias de la Electrónica con Mención en Control y Automatización</p>
+      <div class="meta-grid">
+        <div><strong>Docente:</strong> Mg. Julio Mariano Chicana López</div>
+        <div><strong>Sesión:</strong> 1 (03 de Octubre de 2026)</div>
+        <div><strong>Duración:</strong> 8 horas lectivas presenciales</div>
+        <div><strong>Semestre:</strong> 2026-B</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVEGACIÓN -->
+  <nav>
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="setTab(event, 'tab-cronograma')">1. Ruta y Sílabo</button>
+      <button class="tab-btn" onclick="setTab(event, 'tab-diapositivas')">2. Diapositivas de Clase</button>
+      <button class="tab-btn" onclick="setTab(event, 'tab-diagnostico')">3. Evaluación Diagnóstica</button>
+      <button class="tab-btn" onclick="setTab(event, 'tab-casos')">4. Análisis de Casos</button>
+      <button class="tab-btn" onclick="setTab(event, 'tab-canvas')">5. Taller: Canvas v0</button>
+      <button class="tab-btn" onclick="setTab(event, 'tab-integridad')">6. Integridad &amp; Pauta 5V</button>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- PESTAÑA 1: RUTA Y SÍLABO -->
+    <section id="tab-cronograma" class="tab-pane active">
+      <div class="card">
+        <h2>Organización de la Jornada de 8 Horas (Sesión 1)</h2>
+        <p>Conforme al sílabo del curso EC-108, las actividades aplicadas se desarrollan dentro de las horas lectivas del plan, estructurándose en 4 bloques de trabajo presencial:</p>
+        
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-time">08:00 – 09:40</div>
+            <div>
+              <strong>Bloque 1: Activación y Fundamentos Epistémicos</strong>
+              <p>Presentación del curso, lineamientos de evaluación sumativa (P1: 40%, P2: 35%, SO: 15%, EF: 10%). Aplicación de la evaluación diagnóstica. El problema científico, sus requisitos y criterios de I+D según el Manual de Frascati (OCDE, 2018).</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-time">09:40 – 11:20</div>
+            <div>
+              <strong>Bloque 2: Lectura Crítica y Análisis de Casos de Ingeniería</strong>
+              <p>Diferenciación entre problema técnico/rutinario y problema investigable de posgrado. Diagnóstico y análisis de 3 casos: control PID y no linealidades, visión artificial edge e instrumentación metrológica.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-time">11:20 – 13:00</div>
+            <div>
+              <strong>Bloque 3: Taller de Delimitación y Canvas de Investigación</strong>
+              <p>Delimitación de la brecha científica inicial (gap). Formulación de la pregunta de investigación principal. Elaboración individual de la Ficha de Oportunidad y el Canvas de Investigación (Versión 0).</p>
+            </div>
+          </div>
+
+          <div style="padding: 0.75rem 1rem; background: #e2e8f0; border-radius: 4px; font-size: 0.9rem; color: #475569;">
+            <em>13:00 – 13:50: Receso de mediodía (Tiempo no lectivo)</em>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-time">13:50 – 15:30</div>
+            <div>
+              <strong>Bloque 4: Revisión por Pares, Integridad y Cierre</strong>
+              <p>Presentación relámpago de propuestas (pitch de 3 minutos). Coevaluación entre pares con lista de cotejo. Políticas IEEE sobre IA generativa, presentación de la Pauta Docente 5V y asignación del trabajo autónomo hacia la Sesión 2.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Resultado de Aprendizaje Específico (RAE 1)</h2>
+        <p>Al finalizar la unidad, el estudiante formula y fundamenta un problema de investigación pertinente al campo de la electrónica, control y automatización, identificando una brecha sustentada en evidencia científica y articulando coherentemente problema, objeto de estudio, objetivos, variables, hipótesis cuando corresponda, métodos y modelo de investigación.</p>
+      </div>
+    </section>
+
+    <!-- PESTAÑA 2: VISOR DE DIAPOSITIVAS -->
+    <section id="tab-diapositivas" class="tab-pane">
+      <div class="card">
+        <h2>Presentación de Clase: Sesión 1</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.25rem;">Utilice este visor para proyectar o repasar los contenidos teóricos centrales durante la sesión.</p>
+
+        <div class="slideshow-container">
+          <!-- Slide 1 -->
+          <div class="slide active" id="slide-1">
+            <h3>Lámina 1: Bienvenida e Introducción a EC-108</h3>
+            <div class="slide-body">
+              <p><strong>Metodología de la Investigación en Control y Automatización</strong></p>
+              <ul>
+                <li><strong>Propósito:</strong> Desarrollar un protocolo o anteproyecto de tesis riguroso, viable y reproducible en 4 semanas (8 sesiones).</li>
+                <li><strong>Enfoque de Posgrado:</strong> Superar la resolución de problemas técnicos rutinarios y enfocarse en la generación de nuevo conocimiento científico o desarrollo experimental avanzado.</li>
+                <li><strong>Producto de la Unidad 1:</strong> Dossier de formulación P1 (40% de la calificación final).</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="slide" id="slide-2">
+            <h3>Lámina 2: ¿Qué es I+D? (Manual de Frascati - OCDE)</h3>
+            <div class="slide-body">
+              <p>Para que un proyecto en ingeniería califique formalmente como Investigación y Desarrollo (I+D), debe satisfacer cinco criterios esenciales:</p>
+              <ul>
+                <li><strong>Novedoso:</strong> Aporta nuevos hallazgos, conceptos o mejoras sustanciales no evidentes para un experto medio.</li>
+                <li><strong>Creativo:</strong> No se basa únicamente en la aplicación directa de procedimientos preestablecidos o de catálogo.</li>
+                <li><strong>Incierto:</strong> Existe duda objetiva inicial sobre el resultado o el rendimiento exacto de la solución.</li>
+                <li><strong>Sistemático:</strong> Sigue un protocolo formal, presupuestado y metodológicamente estructurado.</li>
+                <li><strong>Transferible / Reproducible:</strong> Conduce a resultados susceptibles de ser validados y replicados.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="slide" id="slide-3">
+            <h3>Lámina 3: Problema Técnico vs. Problema Científico</h3>
+            <div class="slide-body">
+              <ul>
+                <li><strong>Problema Técnico:</strong> Se resuelve aplicando conocimientos y tecnologías ya existentes (ej. parametrizar un PLC comercial, instalar una tarjeta de adquisición con su librería oficial). Responde a la pregunta: <em>¿Cómo aplico lo conocido?</em></li>
+                <li><strong>Problema Científico:</strong> Surge ante una brecha de conocimiento en la literatura especializada (gap). Responde a una incertidumbre sobre relaciones entre variables o límites de modelado: <em>¿Qué fenómeno o compromiso físico/matemático no está resuelto?</em></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Slide 4 -->
+          <div class="slide" id="slide-4">
+            <h3>Lámina 4: Requisitos de Investigabilidad del Problema</h3>
+            <div class="slide-body">
+              <ul>
+                <li><strong>Factibilidad Teórica:</strong> Sustentado en leyes físicas, teoría de control, matemáticas o procesamiento de señales reconocidas.</li>
+                <li><strong>Medibilidad Operacional:</strong> Las variables deben poder cuantificarse mediante instrumentos, métricas estándar o simuladores validados.</li>
+                <li><strong>Delimitación Precisa:</strong> Acotado en alcance (no pretender resolver "el control industrial en general", sino una clase específica de plantas bajo condiciones explícitas).</li>
+                <li><strong>Viabilidad de Recursos:</strong> Posibilidad real de completarse mediante modelos de simulación o bancos de datos disponibles.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Slide 5 -->
+          <div class="slide" id="slide-5">
+            <h3>Lámina 5: El Canvas de Investigación (Versión 0)</h3>
+            <div class="slide-body">
+              <p>Herramienta pedagógica sintética para estructurar el núcleo del proyecto en 9 bloques:</p>
+              <ul>
+                <li>1. Contexto y Fenómeno | 2. Brecha Científica | 3. Pregunta Principal.</li>
+                <li>4. Tipo Frascati (Aplicada o Experimental) | 5. Variables y Factores | 6. Modelo Metodológico.</li>
+                <li>7. Métricas de Desempeño | 8. Recursos y Software | 9. Contribución Prevista.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Slide 6 -->
+          <div class="slide" id="slide-6">
+            <h3>Lámina 6: Integridad Científica y Pauta 5V (IA)</h3>
+            <div class="slide-body">
+              <p>La Inteligencia Artificial se utiliza como acelerador bajo estricta supervisión humana:</p>
+              <ul>
+                <li><strong>V1 - Verificar:</strong> Corroborar cada afirmación matemática o técnica.</li>
+                <li><strong>V2 - Vincular:</strong> Todo antecedente debe enlazarse a un DOI real en IEEE/Scopus.</li>
+                <li><strong>V3 - Validar:</strong> Comprobar independientemente códigos (Python/MATLAB).</li>
+                <li><strong>V4 - Versionar:</strong> Evidenciar la evolución progresiva de los documentos.</li>
+                <li><strong>V5 - Visibilizar:</strong> Declarar las herramientas de IA en la bitácora metodológica.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Slide 7 -->
+          <div class="slide" id="slide-7">
+            <h3>Lámina 7: Trabajo Autónomo para la Sesión 2</h3>
+            <div class="slide-body">
+              <ul>
+                <li>Ajustar el Canvas de Investigación v0 integrando la retroalimentación de la jornada.</li>
+                <li>Elaborar la Matriz de Coherencia versión 1 (Pregunta - Objetivos - Hipótesis - Variables).</li>
+                <li>Localizar 10 artículos centrales indexados (IEEE, ScienceDirect o Springer) con sus respectivos DOIs verificados.</li>
+                <li>Registrar cualquier consulta realizada a modelos de IA en la Bitácora de Integridad.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Slide 8 -->
+          <div class="slide" id="slide-8">
+            <h3>Lámina 8: Conclusiones de la Jornada Inicial</h3>
+            <div class="slide-body">
+              <ul>
+                <li>Un buen proyecto de ingeniería de posgrado nace de una brecha identificada en la literatura, no de una ocurrencia aislada.</li>
+                <li>La delimitación del problema es el 50% del éxito de la investigación.</li>
+                <li>En la Sesión 2 formalizaremos las hipótesis condicionales y la operacionalización de las variables.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="slideshow-controls">
+            <button class="btn-slide" id="prevSlideBtn" onclick="prevSlide()">← Anterior</button>
+            <span class="slide-counter" id="slideIndicator">Diapositiva 1 de 8</span>
+            <button class="btn-slide" id="nextSlideBtn" onclick="nextSlide()">Siguiente →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PESTAÑA 3: EVALUACIÓN DIAGNÓSTICA COMPLETA -->
+    <section id="tab-diagnostico" class="tab-pane">
+      <div class="card">
+        <h2>Evaluación Diagnóstica Formativa</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+          Esta evaluación mide saberes previos sobre el método científico, investigación en ingeniería y ética aplicada. No tiene peso sumativo sobre la nota final.
+        </p>
+
+        <!-- Pregunta 1 -->
+        <div class="quiz-card">
+          <h4>1. Una empresa industrial requiere sintonizar los parámetros de un lazo PID para un reactor químico. El ingeniero prueba Ziegler-Nichols, ajusta la respuesta y reduce el sobreimpulso al 5%. Según el Manual de Frascati (OCDE), esta actividad corresponde a:</h4>
+          <label class="quiz-option"><input type="radio" name="dq1" value="A"> A) Investigación Básica pura.</label>
+          <label class="quiz-option"><input type="radio" name="dq1" value="B"> B) Investigación Aplicada para la generación de nuevo conocimiento.</label>
+          <label class="quiz-option"><input type="radio" name="dq1" value="C"> C) Práctica técnica rutinaria de ingeniería o soporte (no constituye I+D).</label>
+          <label class="quiz-option"><input type="radio" name="dq1" value="D"> D) Desarrollo experimental patentable.</label>
+          <div class="feedback-box" id="fb-dq1"></div>
+        </div>
+
+        <!-- Pregunta 2 -->
+        <div class="quiz-card">
+          <h4>2. ¿Cuál de los siguientes enunciados representa rigurosamente un PROBLEMA CIENTÍFICO para una tesis de maestría en Control y Automatización?</h4>
+          <label class="quiz-option"><input type="radio" name="dq2" value="A"> A) Carencia de un sistema SCADA en la línea de embotellado de la planta.</label>
+          <label class="quiz-option"><input type="radio" name="dq2" value="B"> B) Pérdida de robustez y degradación de estabilidad en algoritmos de control predictivo ante retardos estocásticos en redes de comunicación industrial.</label>
+          <label class="quiz-option"><input type="radio" name="dq2" value="C"> C) Necesidad de programar un PLC Siemens S7-1500 para supervisar un almacén.</label>
+          <label class="quiz-option"><input type="radio" name="dq2" value="D"> D) El alto precio en el mercado de los transmisores de temperatura industriales.</label>
+          <div class="feedback-box" id="fb-dq2"></div>
+        </div>
+
+        <!-- Pregunta 3 -->
+        <div class="quiz-card">
+          <h4>3. De acuerdo con las políticas editoriales de IEEE (2024) sobre el uso de herramientas de Inteligencia Artificial Generativa:</h4>
+          <label class="quiz-option"><input type="radio" name="dq3" value="A"> A) La IA puede figurar como coautora si contribuyó con el modelo matemático.</label>
+          <label class="quiz-option"><input type="radio" name="dq3" value="B"> B) El autor humano asume la responsabilidad plena de la veracidad y debe verificar cada cita bibliográfica contra bases indexadas reales.</label>
+          <label class="quiz-option"><input type="radio" name="dq3" value="C"> C) Se permite incluir referencias bibliográficas propuestas por la IA sin contrastar el texto original.</label>
+          <label class="quiz-option"><input type="radio" name="dq3" value="D"> D) Las herramientas de IA no pueden ser utilizadas en ninguna fase preparatoria del posgrado.</label>
+          <div class="feedback-box" id="fb-dq3"></div>
+        </div>
+
+        <!-- Pregunta 4 -->
+        <div class="quiz-card">
+          <h4>4. En el contexto de la investigación en ingeniería de control, el papel principal de una HIPÓTESIS es:</h4>
+          <label class="quiz-option"><input type="radio" name="dq4" value="A"> A) Una afirmación subjetiva que busca convencer al jurado evaluador.</label>
+          <label class="quiz-option"><input type="radio" name="dq4" value="B"> B) Una proposición tentativa y contrastable empíricamente sobre el efecto de una técnica o diseño sobre métricas medibles del sistema.</label>
+          <label class="quiz-option"><input type="radio" name="dq4" value="C"> C) La descripción exhaustiva de los costos del equipamiento requerido.</label>
+          <label class="quiz-option"><input type="radio" name="dq4" value="D"> D) Un resumen paso a paso del manual de usuario del software de simulación.</label>
+          <div class="feedback-box" id="fb-dq4"></div>
+        </div>
+
+        <!-- Pregunta 5 -->
+        <div class="quiz-card">
+          <h4>5. Al experimentar con un lazo de control de velocidad de un motor sincrónico, si se manipula la ley de control por modo deslizante y se evalúa el error integral ITAE frente a una variación de carga repentina, la variable DEPENDIENTE es:</h4>
+          <label class="quiz-option"><input type="radio" name="dq5" value="A"> A) La ley de control por modo deslizante (técnica propuesta).</label>
+          <label class="quiz-option"><input type="radio" name="dq5" value="B"> B) La variación repentina del par de carga (perturbación externa).</label>
+          <label class="quiz-option"><input type="radio" name="dq5" value="C"> C) El desempeño del lazo medido a través del error integral (ITAE).</label>
+          <label class="quiz-option"><input type="radio" name="dq5" value="D"> D) El software de simulación computacional empleado.</label>
+          <div class="feedback-box" id="fb-dq5"></div>
+        </div>
+
+        <!-- Pregunta 6 -->
+        <div class="quiz-card">
+          <h4>6. ¿Qué condición metodológica garantiza la REPRODUCIBILIDAD de un modelo de simulación en una publicación científica según IEEE?</h4>
+          <label class="quiz-option"><input type="radio" name="dq6" value="A"> A) Omitir las ecuaciones diferenciales para proteger la propiedad intelectual del autor.</label>
+          <label class="quiz-option"><input type="radio" name="dq6" value="B"> B) Explicitar todos los parámetros, supuestos del modelo, condiciones iniciales y semillas de perturbación empleadas.</label>
+          <label class="quiz-option"><input type="radio" name="dq6" value="C"> C) Presentar únicamente gráficos de resultados finales en imágenes de alta resolución.</label>
+          <label class="quiz-option"><input type="radio" name="dq6" value="D"> D) Emplear únicamente software comercial de código cerrado sin registrar la versión.</label>
+          <div class="feedback-box" id="fb-dq6"></div>
+        </div>
+
+        <div class="btn-toolbar">
+          <button class="btn btn-primary" onclick="evaluarDiagnostico()">Calificar Evaluación Diagnóstica</button>
+          <button class="btn btn-outline" onclick="reiniciarDiagnostico()">Reiniciar Respuestas</button>
+        </div>
+
+        <div class="score-banner" id="scoreBanner">
+          <h3 style="color: var(--primary); margin: 0 0 0.5rem 0;">Resultado de la Evaluación</h3>
+          <p id="scoreText" style="font-size: 1.15rem; font-weight: 600;"></p>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Revise la retroalimentación de cada pregunta para fortalecer la discusión durante el Bloque 1.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PESTAÑA 4: ANÁLISIS DE CASOS -->
+    <section id="tab-casos" class="tab-pane">
+      <div class="card">
+        <h2>Laboratorio Epistémico: Problema Técnico vs. Científico</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+          Compare las siguientes situaciones para guiar la transformación de necesidades prácticas en objetos formales de investigación.
+        </p>
+
+        <h3>Caso 1: Control de Procesos y Dinámica no Lineal</h3>
+        <div class="case-grid">
+          <div class="case-box case-tech">
+            <strong style="color: #991b1b;">Formulación Técnica (Práctica Profesional)</strong>
+            <p style="margin-top: 0.5rem;">"Implementar un lazo de control PID para regular la temperatura de un intercambiador de calor en una planta agroindustrial utilizando un PLC Siemens."</p>
+            <hr style="border: 0; border-top: 1px solid #fecdd3; margin: 0.75rem 0;">
+            <small><strong>Diagnóstico:</strong> Problema de integración tecnológica con heurística estándar. No resuelve una incertidumbre ni genera conocimiento generalizable.</small>
+          </div>
+          <div class="case-box case-research">
+            <strong style="color: #166534;">Formulación Científica (Posgrado)</strong>
+            <p style="margin-top: 0.5rem;">"¿En qué medida un esquema de control adaptativo por modelo interno compensa retardos de transporte variables aleatorios y saturación del actuador en procesos térmicos de alta inercia frente al control PID clásico?"</p>
+            <hr style="border: 0; border-top: 1px solid #bbf7d0; margin: 0.75rem 0;">
+            <small><strong>Aporte:</strong> Identifica una limitación en la literatura (retardos aleatorios), propone un modelo matemático y define métricas de desempeño cuantitativo.</small>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 2rem;">Caso 2: Visión Artificial y Automatización Industrial</h3>
+        <div class="case-grid">
+          <div class="case-box case-tech">
+            <strong style="color: #991b1b;">Formulación Técnica (Práctica Profesional)</strong>
+            <p style="margin-top: 0.5rem;">"Instalar una cámara web y programar un script en Python con OpenCV para detectar y contar piezas metálicas defectuosas sobre una faja transportadora."</p>
+            <hr style="border: 0; border-top: 1px solid #fecdd3; margin: 0.75rem 0;">
+            <small><strong>Diagnóstico:</strong> Aplicación de algoritmos comerciales ya resueltos. No hay brecha científica explícita.</small>
+          </div>
+          <div class="case-box case-research">
+            <strong style="color: #166534;">Formulación Científica (Posgrado)</strong>
+            <p style="margin-top: 0.5rem;">"¿Cómo afecta la cuantización de pesos y poda de capas en redes neuronales convolucionales ultralivianas (Edge-AI) al compromiso entre latencia de inferencia (<30 ms) y exactitud de detección (mAP) en microcontroladores de ultra bajo consumo?"</p>
+            <hr style="border: 0; border-top: 1px solid #bbf7d0; margin: 0.75rem 0;">
+            <small><strong>Aporte:</strong> Formula un trade-off formal de optimización ingenieril y cuantifica restricciones computacionales críticas.</small>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 2rem;">Caso 3: Instrumentación y Transducción Sensorial</h3>
+        <div class="case-grid">
+          <div class="case-box case-tech">
+            <strong style="color: #991b1b;">Formulación Técnica (Práctica Profesional)</strong>
+            <p style="margin-top: 0.5rem;">"Adquirir señales de un sensor ultrasónico con Arduino para medir nivel de agua y desplegar los datos en un display LCD."</p>
+            <hr style="border: 0; border-top: 1px solid #fecdd3; margin: 0.75rem 0;">
+            <small><strong>Diagnóstico:</strong> Ensamble instrumental básico sin rigor metrológico.</small>
+          </div>
+          <div class="case-box case-research">
+            <strong style="color: #166534;">Formulación Científica (Posgrado)</strong>
+            <p style="margin-top: 0.5rem;">"Modelado estocástico y compensación de incertidumbre tipo A y B en la cadena de transducción acústica para fluidos multifásicos bajo gradientes térmicos transitorios mediante filtrado bayesiano."</p>
+            <hr style="border: 0; border-top: 1px solid #bbf7d0; margin: 0.75rem 0;">
+            <small><strong>Aporte:</strong> Aplica normas metrológicas internacionales (JCGM GUM), estima propagación de errores y modela el transductor con rigor estocástico.</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PESTAÑA 5: CANVAS DE INVESTIGACIÓN v0 -->
+    <section id="tab-canvas" class="tab-pane">
+      <div class="card">
+        <h2>Taller Aplicado: Canvas de Investigación (Versión 0)</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">
+          Complete cada uno de los 9 bloques de su propuesta. La información se guarda automáticamente en su navegador.
+        </p>
+
+        <div class="canvas-grid">
+          <div class="canvas-cell">
+            <label>1. Contexto &amp; Síntoma Observado</label>
+            <textarea id="c_contexto" rows="4" placeholder="¿Qué fenómeno o limitación física ocurre en la planta, sistema o circuito dinámico?"></textarea>
+          </div>
+
+          <div class="canvas-cell">
+            <label>2. Brecha Científica (Research Gap)</label>
+            <textarea id="c_brecha" rows="4" placeholder="¿Qué solución no ha sido resuelta satisfactoriamente en los artículos indexados recientes?"></textarea>
+          </div>
+
+          <div class="canvas-cell">
+            <label>3. Pregunta Principal de Investigación</label>
+            <textarea id="c_pregunta" rows="4" placeholder="Formulación precisa: ¿En qué medida...? / ¿Cómo incide... sobre...?"></textarea>
+          </div>
+
+          <div class="canvas-cell">
+            <label>4. Criterio de I+D (Manual de Frascati)</label>
+            <select id="c_frascati">
+              <option value="Investigación Aplicada">Investigación Aplicada (Nuevo conocimiento orientado a un objetivo práctico específico)</option>
+              <option value="Desarrollo Experimental">Desarrollo Experimental (Uso de conocimiento previo para crear/mejorar dispositivos sustanciales)</option>
+            </select>
+          </div>
+
+          <div class="canvas-cell">
+            <label>5. Variables y Perturbaciones</label>
+            <textarea id="c_variables" rows="3" placeholder="Independiente (técnica), Dependiente (métrica de respuesta) y Perturbaciones externas."></textarea>
+          </div>
+
+          <div class="canvas-cell">
+            <label>6. Modelo Metodológico o Solución</label>
+            <textarea id="c_modelo" rows="3" placeholder="Ecuaciones de estado, función de transferencia, algoritmo adaptativo, red neuronal, etc."></textarea>
+          </div>
+
+          <div class="canvas-cell">
+            <label>7. Métricas de Desempeño y Validación</label>
+            <textarea id="c_metricas" rows="3" placeholder="Ej: Error Integral (IAE/ITAE), Tiempo de subida, F1-Score, Incertidumbre expandida, etc."></textarea>
+          </div>
+
+          <div class="canvas-cell">
+            <label>8. Recursos &amp; Viabilidad (Software/Datos)</label>
+            <textarea id="c_recursos" rows="3" placeholder="Software de simulación (MATLAB/Simulink, Python), datasets abiertos o instrumental disponible."></textarea>
+          </div>
+
+          <div class="canvas-cell">
+            <label>9. Contribución Prevista</label>
+            <textarea id="c_contribucion" rows="3" placeholder="¿Cuál será el aporte original al estado del arte en control o automatización?"></textarea>
+          </div>
+        </div>
+
+        <div class="btn-toolbar">
+          <button class="btn btn-primary" onclick="guardarCanvas()">Guardar Manualmente</button>
+          <button class="btn btn-secondary" onclick="exportarArchivo()">Descargar como Archivo (.txt)</button>
+          <button class="btn btn-outline" onclick="window.print()">Imprimir / Guardar en PDF</button>
+          <button class="btn btn-outline" onclick="limpiarCanvas()">Limpiar Formulario</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PESTAÑA 6: INTEGRIDAD Y PAUTA 5V -->
+    <section id="tab-integridad" class="tab-pane">
+      <div class="card">
+        <h2>Marco de Integridad Científica y Pauta Docente 5V</h2>
+        <p>
+          En el curso EC-108, el uso de Inteligencia Artificial Generativa está normado bajo las pautas éticas de UNESCO (2023) e IEEE (2024), basadas en el principio de responsabilidad humana indelegable.
+        </p>
+
+        <div class="pauta-list">
+          <div class="pauta-item" style="border-left-color: #1e3a8a;">
+            <h4>1. V1 - Verificar</h4>
+            <p>Compruebe analítica y matemáticamente cada resultado, ecuación o afirmación entregada por modelos de lenguaje. Nunca asuma la validez de una salida sin someterla al juicio técnico propio.</p>
+          </div>
+
+          <div class="pauta-item" style="border-left-color: #0f766e;">
+            <h4>2. V2 - Vincular</h4>
+            <p>Trazar cada afirmación o antecedente técnico hacia artículos formales con identificador DOI indexado en bases confiables (IEEE Xplore, ScienceDirect, Scopus). Queda prohibido citar referencias no verificadas.</p>
+          </div>
+
+          <div class="pauta-item" style="border-left-color: #2563eb;">
+            <h4>3. V3 - Validar</h4>
+            <p>Si emplea herramientas computacionales o IA para generar scripts de simulación (MATLAB o Python), ejecute pruebas numéricas con casos conocidos para asegurar la consistencia del algoritmo y el manejo de unidades físicas.</p>
+          </div>
+
+          <div class="pauta-item" style="border-left-color: #b45309;">
+            <h4>4. V4 - Versionar</h4>
+            <p>Guarde un historial de cambios explícito entre versiones del documento (v0, v1, etc.) para evidenciar cómo la retroalimentación docente y la discusión con pares enriquecieron la propuesta.</p>
+          </div>
+
+          <div class="pauta-item" style="border-left-color: #15803d;">
+            <h4>5. V5 - Visibilizar</h4>
+            <p>Declare con transparencia el empleo de modelos de IA en la sección correspondiente del protocolo, registrando la herramienta, fecha, tarea solicitada y validación realizada.</p>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 1.75rem;">Plantilla de Bitácora para el Anexo del Protocolo</h3>
+        <pre style="background: #f1f5f9; padding: 1rem; border-radius: 4px; font-size: 0.85rem; overflow-x: auto; border: 1px solid var(--border);">
++------------------+------------+---------------------------+-----------------------------------+-----------------------------------+
+| Herramienta / IA | Fecha      | Tarea Solicitada          | Respuesta Utilizada               | Verificación Humana Realizada     |
++------------------+------------+---------------------------+-----------------------------------+-----------------------------------+
+| Ej. Claude 3.5   | 03/10/2026 | Búsqueda de sinónimos     | Sugirió términos "anti-windup"    | Se contrastó con bibliografía     |
+|                  |            | técnicos para control PID | y "chattering attenuation".       | especializada de control no lineal|
++------------------+------------+---------------------------+-----------------------------------+-----------------------------------+
+        </pre>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      Universidad Nacional del Callao • Escuela de Posgrado • Unidad de Posgrado FIEE<br>
+      Asignatura: Metodología de la Investigación (EC-108) — Semestre 2026-B
+    </div>
+  </footer>
+
+  <!-- LÓGICA DE INTERACTIVIDAD JAVASCRIPT -->
+  <script>
+    // GESTIÓN DE PESTAÑAS
+    function setTab(evt, tabId) {
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      
+      const target = document.getElementById(tabId);
+      if (target) target.classList.add('active');
+      if (evt && evt.currentTarget) evt.currentTarget.classList.add('active');
+    }
+
+    // VISOR DE DIAPOSITIVAS
+    let currentSlide = 1;
+    const totalSlides = 8;
+
+    function showSlide(n) {
+      for (let i = 1; i <= totalSlides; i++) {
+        const s = document.getElementById('slide-' + i);
+        if (s) s.classList.remove('active');
+      }
+      const activeS = document.getElementById('slide-' + n);
+      if (activeS) activeS.classList.add('active');
+
+      document.getElementById('slideIndicator').innerText = `Diapositiva ${n} de ${totalSlides}`;
+      document.getElementById('prevSlideBtn').disabled = (n === 1);
+      document.getElementById('nextSlideBtn').disabled = (n === totalSlides);
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        currentSlide++;
+        showSlide(currentSlide);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        currentSlide--;
+        showSlide(currentSlide);
+      }
+    }
+
+    // NAVEGACIÓN DE DIAPOSITIVAS CON TECLADO
+    document.addEventListener('keydown', (e) => {
+      const slideTabActive = document.getElementById('tab-diapositivas').classList.contains('active');
+      if (!slideTabActive) return;
+
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') nextSlide();
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
+    });
+
+    // EVALUACIÓN DIAGNÓSTICA
+    const respuestasCorrectas = {
+      dq1: { correcta: 'C', feedback: 'Correcto. La sintonización habitual con fórmulas estándar en plantas industriales es soporte técnico de ingeniería, no generación de conocimiento según el Manual de Frascati.' },
+      dq2: { correcta: 'B', feedback: 'Correcto. Aborda una incertidumbre científica sustentable (robustez ante retardos estocásticos de red) con variables identificables y aplicable a una clase general de sistemas.' },
+      dq3: { correcta: 'B', feedback: 'Correcto. Conforme a las directrices de IEEE, el autor humano es el único responsable de la integridad científica y debe validar el 100% de sus referencias.' },
+      dq4: { correcta: 'B', feedback: 'Correcto. En ingeniería, la hipótesis plantea una respuesta tentativa sobre cómo una técnica propuesta modificará las métricas observables del sistema dinámico.' },
+      dq5: { correcta: 'C', feedback: 'Correcto. El error integral ITAE es la respuesta observable (efecto) del sistema ante la técnica empleada.' },
+      dq6: { correcta: 'B', feedback: 'Correcto. Sin parámetros físicos, supuestos matemáticos ni condiciones iniciales, ningún colega científico puede replicar la simulación.' }
+    };
+
+    function evaluarDiagnostico() {
+      let correctas = 0;
+      let total = Object.keys(respuestasCorrectas).length;
+
+      for (let k in respuestasCorrectas) {
+        const sel = document.querySelector(`input[name="${k}"]:checked`);
+        const fb = document.getElementById(`fb-${k}`);
+        
+        if (!fb) continue;
+
+        if (sel && sel.value === respuestasCorrectas[k].correcta) {
+          correctas++;
+          fb.className = 'feedback-box correct';
+          fb.innerHTML = `<strong>¡Correcto!</strong> ${respuestasCorrectas[k].feedback}`;
+        } else {
+          fb.className = 'feedback-box incorrect';
+          fb.innerHTML = `<strong>Observación:</strong> Respuesta incorrecta o incompleta. ${respuestasCorrectas[k].feedback}`;
+        }
+      }
+
+      const nota = Math.round((correctas / total) * 20);
+      const banner = document.getElementById('scoreBanner');
+      const text = document.getElementById('scoreText');
+      banner.style.display = 'block';
+      text.innerText = `Puntaje Obtenido: ${nota} / 20 (${correctas} de ${total} correctas)`;
+    }
+
+    function reiniciarDiagnostico() {
+      for (let k in respuestasCorrectas) {
+        const radios = document.querySelectorAll(`input[name="${k}"]`);
+        radios.forEach(r => r.checked = false);
+        const fb = document.getElementById(`fb-${k}`);
+        if (fb) {
+          fb.className = 'feedback-box';
+          fb.style.display = 'none';
+        }
+      }
+      document.getElementById('scoreBanner').style.display = 'none';
+    }
+
+    // CANVAS DE INVESTIGACIÓN: LOCALSTORAGE & EXPORTACIÓN
+    const camposCanvas = ['contexto', 'brecha', 'pregunta', 'frascati', 'variables', 'modelo', 'metricas', 'recursos', 'contribucion'];
+
+    function autoGuardarCanvas() {
+      camposCanvas.forEach(c => {
+        const el = document.getElementById('c_' + c);
+        if (el) localStorage.setItem('ec108_canvas_' + c, el.value);
+      });
+    }
+
+    function cargarCanvas() {
+      camposCanvas.forEach(c => {
+        const el = document.getElementById('c_' + c);
+        const val = localStorage.getItem('ec108_canvas_' + c);
+        if (el && val !== null) el.value = val;
+      });
+    }
+
+    function guardarCanvas() {
+      autoGuardarCanvas();
+      alert('Propuesta del Canvas guardada exitosamente en la memoria local del navegador.');
+    }
+
+    function limpiarCanvas() {
+      if (confirm('¿Está seguro de restablecer todos los campos del Canvas?')) {
+        camposCanvas.forEach(c => {
+          const el = document.getElementById('c_' + c);
+          if (el) el.value = '';
+          localStorage.removeItem('ec108_canvas_' + c);
+        });
+      }
+    }
+
+    function exportarArchivo() {
+      const datos = 
+`============================================================
+CANVAS DE INVESTIGACIÓN (VERSIÓN 0) - EC-108
+Universidad Nacional del Callao - Posgrado FIEE
+Maestría en Ciencias de la Electrónica (Control y Automatización)
+Docente: Mg. Julio Mariano Chicana López
+============================================================
+
+1. CONTEXTO Y SÍNTOMA OBSERVADO:
+${document.getElementById('c_contexto').value}
+
+2. BRECHA CIENTÍFICA (RESEARCH GAP):
+${document.getElementById('c_brecha').value}
+
+3. PREGUNTA PRINCIPAL DE INVESTIGACIÓN:
+${document.getElementById('c_pregunta').value}
+
+4. NATURALEZA DEL PROYECTO (MANUAL DE FRASCATI):
+${document.getElementById('c_frascati').value}
+
+5. VARIABLES Y PERTURBACIONES:
+${document.getElementById('c_variables').value}
+
+6. MODELO METODOLÓGICO O SOLUCIÓN:
+${document.getElementById('c_modelo').value}
+
+7. MÉTRICAS DE DESEMPEÑO Y VALIDACIÓN:
+${document.getElementById('c_metricas').value}
+
+8. RECURSOS Y VIABILIDAD:
+${document.getElementById('c_recursos').value}
+
+9. CONTRIBUCIÓN PREVISTA:
+${document.getElementById('c_contribucion').value}
+
+Fecha de generación: ${new Date().toLocaleDateString()}
+`;
+      const blob = new Blob([datos], { type: 'text/plain;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'Canvas_Investigacion_v0_EC108.txt';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    // INICIALIZACIÓN
+    window.addEventListener('DOMContentLoaded', () => {
+      cargarCanvas();
+      camposCanvas.forEach(c => {
+        const el = document.getElementById('c_' + c);
+        if (el) el.addEventListener('input', autoGuardarCanvas);
+      });
+      showSlide(1);
+    });
+  </script>
+</body>
+</html>
